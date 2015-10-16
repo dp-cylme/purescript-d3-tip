@@ -2,6 +2,7 @@
 module Graphics.D3.Tip
        (Tip()
        , Direction()
+       , tip
        , show
        , hide
        , style
