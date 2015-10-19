@@ -11,6 +11,7 @@ module Graphics.D3.Tip
        , offset
        , html
        , destroy
+       , call
        ) where
 
 import Data.Foreign.EasyFFI
