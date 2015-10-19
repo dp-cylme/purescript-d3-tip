@@ -27,22 +27,22 @@ foreign import data Tip :: *
 
 foreign import tip :: D3Eff Tip
 
-show :: D3Eff Tip
-show = ffi [] "tip.show()"
+show :: Tip -> D3Eff Tip
+show = ffi ["tip", ""] "tip.show()"
 
-hide :: D3Eff Tip
-hide = ffi [] "tip.hide()"
+hide :: Tip -> D3Eff Tip
+hide = ffi ["tip", ""] "tip.hide()"
 
-attr :: String -> String -> D3Eff Tip
-attr = ffi ["n", "v"] "tip.attr(n, v)"
+attr :: String -> String -> Tip -> D3Eff Tip
+attr = ffi ["n", "v", "tip", ""] "tip.attr(n, v)"
 
-style :: String -> String -> D3Eff Tip
-style = ffi ["n", "v"] "tip.style(n,v)"
+style :: String -> String -> Tip -> D3Eff Tip
+style = ffi ["n", "v", "tip", ""] "tip.style(n,v)"
 
-tipDirection :: String -> D3Eff Tip
-tipDirection = ffi ["v"] "tip.direction(v)"
+tipDirection :: String -> Tip -> D3Eff Tip
+tipDirection = ffi ["v", "tip", ""] "tip.direction(v)"
 
-direction :: Direction -> D3Eff Tip
+direction :: Direction -> Tip -> D3Eff Tip
 direction N = tipDirection "n"
 direction S = tipDirection "s"
 direction E = tipDirection "e"
@@ -53,17 +53,17 @@ direction NE = tipDirection "ne"
 direction SE = tipDirection "se"
 
 
-tipOffset :: Array Number -> D3Eff Tip
-tipOffset = ffi ["v"] "tip.offset(v)"
+tipOffset :: Array Number -> Tip -> D3Eff Tip
+tipOffset = ffi ["v", "tip", ""] "tip.offset(v)"
 
-offset :: Number -> Number -> D3Eff Tip
+offset :: Number -> Number -> Tip -> D3Eff Tip
 offset x y = tipOffset ([x, y])
 
-html :: (forall a. a -> String) -> D3Eff Tip
-html = ffi ["fn"] "tip.html(fn)"
+html :: (forall a. a -> String) -> Tip -> D3Eff Tip
+html = ffi ["fn", "tip", ""] "tip.html(fn)"
 
-destroy :: D3Eff Tip
-destroy = ffi [] "tip.destroy()"
+destroy :: Tip -> D3Eff Tip
+destroy = ffi ["tip", ""] "tip.destroy()"
 
 call :: forall s d. (Existing s) => Tip -> s d -> D3Eff (Selection d)
 call = ffi ["tip", "selection", ""] "selection.call(tip)"
