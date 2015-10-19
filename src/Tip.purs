@@ -15,6 +15,7 @@ module Graphics.D3.Tip
 
 import Data.Foreign.EasyFFI
 import Graphics.D3.Base
+import Graphics.D3.Selection (Selection(), Existing)
 import Prelude (Show)
 
 data Direction = N | S | E | W | NW | SW | NE | SE
@@ -63,5 +64,6 @@ html = ffi ["fn"] "tip.html(fn)"
 destroy :: D3Eff Tip
 destroy = ffi [] "tip.destroy()"
 
-
+call :: forall s d. (Existing s) => Tip -> s d -> D3Eff (Selection d)
+call = ffi ["tip", "selection", ""] "selection.call(tip)"
 
